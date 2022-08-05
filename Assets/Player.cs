@@ -5,8 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Transform mainCameraTransform;
+    [SerializeField] private ClosetItem[] closetItems;
     private LineRenderer lineRenderer;
     public string currentHit;
+    public bool isMaskOn = false;
+    public int wornItemsCounter = 0;
 
     void Start()
     {
@@ -49,16 +52,32 @@ public class Player : MonoBehaviour
 
             if (hit.collider.tag.Equals("ClosetItem"))
             {
+                hit.collider.GetComponent<ClosetItem>().SetHighlight(true);
                 if (Input.GetMouseButtonDown(0))
                 {
                     if (hit.collider.GetComponent<ClosetItem>())
                     {
+
                         if (!hit.collider.GetComponent<ClosetItem>().isWorn)
+                        {
                             StartCoroutine(hit.collider.GetComponent<ClosetItem>().GoToSlotCoroutine());
+                            wornItemsCounter++;
+                        }
                         else
+                        {
                             StartCoroutine(hit.collider.GetComponent<ClosetItem>().GoToClosetCoroutine());
+                            wornItemsCounter--;
+                        }
+                        if (wornItemsCounter == 8)
+                        {
+                            if (Singleton.Instance) Singleton.Instance.scenarioManager.CompleteScenarioStep();
+                        }
                     }
                 }
+            }
+            else
+            {
+                foreach (ClosetItem item in closetItems) item.SetHighlight(false);
             }
         }
     }
