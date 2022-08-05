@@ -65,6 +65,10 @@
     <Compile Include="Assets\Mobile\Scripts\VirtualInputs\UIVirtualTouchZone.cs" />
     <Compile Include="Assets\Scripts\BasicRigidBodyPush.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Player.cs" />
+    <Compile Include="Assets\ClosetItem.cs" />
+    <Compile Include="Assets\Closet.cs" />
+    <Compile Include="Assets\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\license.txt" />
